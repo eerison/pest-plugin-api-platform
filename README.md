@@ -8,7 +8,7 @@ This package adds snapshot testing capabilities to **[Pest](https://pestphp.com)
 You can install the package via composer:
 
 ```bash
-composer require spatie/pest-plugin-snapshots --dev
+composer require eerison/pest-plugin-api-platform --dev
 ```
 
 ## Usage
