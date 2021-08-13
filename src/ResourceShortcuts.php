@@ -4,12 +4,10 @@ declare(strict_types=1);
 
 namespace Eerison\PestPluginApiPlatform;
 
+use Pest\Expectation;
+use Pest\Support\Extendable;
 use PHPUnit\Framework\TestCase;
-use Symfony\Contracts\HttpClient\ResponseInterface;
 
-/**
- * @property ResponseInterface $request
- */
 trait ResourceShortcuts
 {
     /**
@@ -17,32 +15,37 @@ trait ResourceShortcuts
      */
     public function assertResponseIsSuccessful(): TestCase
     {
-        expect($this->request->getStatusCode())
-            ->toBeGreaterThanOrEqual(200)
-            ->toBeLessThan(300)
-        ;
+        ApiPlatform::assertResponseIsSuccessful();
 
         return $this;
     }
 
     public function assertResourceIsNotFound(): TestCase
     {
-        expect($this->request->getStatusCode())->toEqual(404);
+        test()->assertResponseStatusCodeSame(404);
 
         return $this;
     }
 
     public function assertResourceIsForbidden(): TestCase
     {
-        expect($this->request->getStatusCode())->toEqual(403);
+        test()->assertResponseStatusCodeSame(403);
 
         return $this;
     }
 
     public function assertResourceIsUnauthorized(): TestCase
     {
-        expect($this->request->getStatusCode())->toEqual(401);
+        test()->assertResponseStatusCodeSame(401);
 
         return $this;
+    }
+
+    /**
+     * @return Expectation|Extendable
+     */
+    public function expectResponseContent()
+    {
+        return expect($this->responseContent());
     }
 }
