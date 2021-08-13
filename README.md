@@ -26,6 +26,8 @@ it('is checking the body structure')
 or you can use importing the function
 
 ```php
+use function Eerison\PestPluginApiPlatform\get;
+
 it('is checking the body structure using context.', function () {
     $responseContent = get('/foo/response/200')->getContent();
 
