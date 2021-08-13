@@ -3,6 +3,7 @@
 namespace Eerison\PestPluginApiPlatform\Tests;
 
 use ApiPlatform\Core\Bridge\Symfony\Bundle\ApiPlatformBundle;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
@@ -49,10 +50,18 @@ class Kernel extends BaseKernel
         ;
     }
 
+    /**
+     * @throws Exception
+     */
     public function responseCode(int $code): JsonResponse
     {
         return new JsonResponse([
-            'number' => random_int(0, 100),
+            'id'      => 1,
+            'name'    => 'Erison',
+            'company' => [
+                'name'    => 'Fake company',
+                'address' => 'r. github n 127.0.0.1',
+            ],
         ], $code);
     }
 }

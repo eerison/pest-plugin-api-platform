@@ -12,25 +12,33 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
  */
 trait Resource
 {
-    private ResponseInterface $request;
+    private ResponseInterface $response;
 
     /**
      * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
      */
     public function get(string $url, array $options = []): TestCase
     {
-        $this->request = ApiPlatform::createApiClient()->request('GET', $url, $options);
+        $this->response = ApiPlatform::createApiClient()->request('GET', $url, $options);
+
+        return $this;
+    }
+
+    public function assertResponseStatusCodeSame(int $statusCode): TestCase
+    {
+        ApiPlatform::assertResponseStatusCodeSame($statusCode);
 
         return $this;
     }
 
     /**
      * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\ServerExceptionInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\RedirectionExceptionInterface
+     * @throws \Symfony\Contracts\HttpClient\Exception\ClientExceptionInterface
      */
-    public function assertStatus(int $statusCode): TestCase
+    public function responseContent(): string
     {
-        expect($this->request->getStatusCode())->toEqual($statusCode);
-
-        return $this;
+        return $this->response->getContent();
     }
 }
