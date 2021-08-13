@@ -1,7 +1,7 @@
 Api platform for Pest
 =====================
 
-This package adds snapshot testing capabilities to **[Pest](https://pestphp.com)**.
+This package adds [Api platform](https://api-platform.com/) testing capabilities to **[Pest](https://pestphp.com)**.
 
 ## Installation
 
