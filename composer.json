@@ -1,5 +1,5 @@
 {
-    "name": "pestphp/pest-plugin-template",
+    "name": "eerison/pest-plugin-api-platform",
     "description": "Pest plugin for Api platform",
     "keywords": [
         "php",
