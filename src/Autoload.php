@@ -18,6 +18,44 @@ function get(string $url, array $options = []): ResponseInterface
     return ApiPlatform::createApiClient()->request('GET', $url, $options);
 }
 
+/**
+ * @phpstan-ignore-next-line
+ */
+function findIriBy(string $resourceClass, array $criteria): ?string
+{
+    return ApiPlatform::instance()->findIriBy(...func_get_args());
+}
+
+function assertResponseIsSuccessful(): void
+{
+    test()->assertResponseIsSuccessful();
+}
+
+function assertResourceIsNotFound(): void
+{
+    test()->assertResourceIsNotFound();
+}
+
+function assertResourceIsUnauthorized(): void
+{
+    test()->assertResourceIsUnauthorized();
+}
+
+function assertResourceIsForbidden(): void
+{
+    test()->assertResourceIsForbidden();
+}
+
+function assertMatchesResourceCollectionJsonSchema(string $object): void
+{
+    ApiPlatform::assertMatchesResourceCollectionJsonSchema($object);
+}
+
+function assertMatchesResourceItemJsonSchema(string $object): void
+{
+    ApiPlatform::assertMatchesResourceItemJsonSchema($object);
+}
+
 expect()->extend('toMatchesResourceCollectionJsonSchema', function ($object): void {
     ApiPlatform::assertMatchesResourceCollectionJsonSchema($object);
 });
