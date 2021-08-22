@@ -13,6 +13,8 @@ use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\Client;
  */
 final class ApiPlatform extends ApiTestCase
 {
+    private static ?ApiPlatform $instance = null;
+
     /**
      * @param array<string> $kernelOptions
      * @param array<string> $defaultOptions
@@ -20,5 +22,22 @@ final class ApiPlatform extends ApiTestCase
     public static function createApiClient(array $kernelOptions = [], array $defaultOptions = []): Client
     {
         return parent::createClient($kernelOptions, $defaultOptions);
+    }
+
+    /**
+     * @phpstan-ignore-next-line
+     */
+    public function findIriBy(string $resourceClass, array $criteria): ?string
+    {
+        return parent::findIriBy($resourceClass, $criteria);
+    }
+
+    public static function instance(): ApiPlatform
+    {
+        if (null === ApiPlatform::$instance) {
+            ApiPlatform::$instance = new ApiPlatform();
+        }
+
+        return ApiPlatform::$instance;
     }
 }

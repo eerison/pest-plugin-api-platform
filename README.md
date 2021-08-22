@@ -38,6 +38,22 @@ it('is checking the body structure using context.', function () {
 });
 ```
 
+using `findIriBy`
+
+```php
+use function Eerison\PestPluginApiPlatform\{get, findIriBy};
+
+it('can use findIriBy', function () {
+    $iri = findIriBy(YourEntity::class, ['yourField' => 'yourValue']);
+    $responseContent = get($iri)->getContent();
+
+    expect($responseContent)
+        ->json()
+        ->toHaveKey('company.address')
+    ;
+});
+```
+
 using snapshot (please install [pest-plugin-snapshots](https://github.com/spatie/pest-plugin-snapshots#installation))
 
 ```php
@@ -51,12 +67,15 @@ it('can be used with snapshot')
 
 List of expectations 
 
+- `findIriBy()` ("expectations" is not implemented yet)
 - `assertResponseIsSuccessful()`
 - `assertResourceIsNotFound()`
 - `assertResourceIsUnauthorized()`
 - `assertResourceIsForbidden()`
 - `toMatchesResourceCollectionJsonSchema(Your::class)`
 - `toMatchesResourceItemJsonSchema(Your::class)`
+- `assertMatchesResourceItemJsonSchema(Your::class)`
+- `assertMatchesResourceCollectionJsonSchema(Your::class)`
 
 ## Testing
 
