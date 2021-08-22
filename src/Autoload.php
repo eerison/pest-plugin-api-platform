@@ -17,3 +17,11 @@ function get(string $url, array $options = []): ResponseInterface
 {
     return ApiPlatform::createApiClient()->request('GET', $url, $options);
 }
+
+expect()->extend('toMatchesResourceCollectionJsonSchema', function ($object): void {
+    ApiPlatform::assertMatchesResourceCollectionJsonSchema($object);
+});
+
+expect()->extend('toMatchesResourceItemJsonSchema', function ($object): void {
+    ApiPlatform::assertMatchesResourceItemJsonSchema($object);
+});

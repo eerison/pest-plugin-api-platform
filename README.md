@@ -49,6 +49,15 @@ it('can be used with snapshot')
     ->toMatchJsonSnapshot();
 ```
 
+List of expectations 
+
+- `assertResponseIsSuccessful()`
+- `assertResourceIsNotFound()`
+- `assertResourceIsUnauthorized()`
+- `assertResourceIsForbidden()`
+- `toMatchesResourceCollectionJsonSchema(Your::class)`
+- `toMatchesResourceItemJsonSchema(Your::class)`
+
 ## Testing
 
 ``` bash
