@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Eerison\PestPluginApiPlatform;
 
 use PHPUnit\Framework\TestCase;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 /**
@@ -14,12 +15,30 @@ trait Resource
 {
     private ResponseInterface $response;
 
-    /**
-     * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
-     */
     public function get(string $url, array $options = []): TestCase
     {
-        $this->response = ApiPlatform::createApiClient()->request('GET', $url, $options);
+        $this->response = ApiPlatform::createApiClient()->request(Request::METHOD_GET, $url, $options);
+
+        return $this;
+    }
+
+    public function post(string $url, array $options = []): TestCase
+    {
+        $this->response = ApiPlatform::createApiClient()->request(Request::METHOD_POST, $url, $options);
+
+        return $this;
+    }
+
+    public function put(string $url, array $options = []): TestCase
+    {
+        $this->response = ApiPlatform::createApiClient()->request(Request::METHOD_PUT, $url, $options);
+
+        return $this;
+    }
+
+    public function delete(string $url, array $options = []): TestCase
+    {
+        $this->response = ApiPlatform::createApiClient()->request(Request::METHOD_DELETE, $url, $options);
 
         return $this;
     }
