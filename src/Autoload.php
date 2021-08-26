@@ -5,7 +5,6 @@ declare(strict_types=1);
 namespace Eerison\PestPluginApiPlatform;
 
 use Pest\Plugin;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 Plugin::uses(Resource::class);
@@ -16,23 +15,31 @@ Plugin::uses(ResourceShortcuts::class);
  */
 function get(string $url, array $options = []): ResponseInterface
 {
-    return ApiPlatform::createApiClient()->request(Request::METHOD_GET, $url, $options);
+    test()->get($url, $options);
+
+    return test()->response();
 }
 
 /**
+ * @param array<string> $fields
  * @param array<string> $options
  */
-function post(string $url, array $options = []): ResponseInterface
+function post(string $url, array $fields, array $options = []): ResponseInterface
 {
-    return ApiPlatform::createApiClient()->request(Request::METHOD_POST, $url, $options);
+    test()->post($url, $fields, $options);
+
+    return test()->response();
 }
 
 /**
+ * @param array<string> $fields
  * @param array<string> $options
  */
-function put(string $url, array $options = []): ResponseInterface
+function put(string $url, array $fields, array $options = []): ResponseInterface
 {
-    return ApiPlatform::createApiClient()->request(Request::METHOD_PUT, $url, $options);
+    test()->put($url, $fields, $options);
+
+    return test()->response();
 }
 
 /**
@@ -40,7 +47,9 @@ function put(string $url, array $options = []): ResponseInterface
  */
 function delete(string $url, array $options = []): ResponseInterface
 {
-    return ApiPlatform::createApiClient()->request(Request::METHOD_DELETE, $url, $options);
+    test()->delete($url, $options);
+
+    return test()->response();
 }
 
 /**

@@ -7,7 +7,11 @@ namespace Eerison\PestPluginApiPlatform;
 use Pest\Expectation;
 use Pest\Support\Extendable;
 use PHPUnit\Framework\TestCase;
+use Symfony\Contracts\HttpClient\ResponseInterface;
 
+/**
+ * @method ResponseInterface response()
+ */
 trait ResourceShortcuts
 {
     /**
@@ -46,6 +50,6 @@ trait ResourceShortcuts
      */
     public function expectResponseContent()
     {
-        return expect($this->responseContent());
+        return expect($this->response()->getContent());
     }
 }
