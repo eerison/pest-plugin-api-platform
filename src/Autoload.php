@@ -4,11 +4,21 @@ declare(strict_types=1);
 
 namespace Eerison\PestPluginApiPlatform;
 
+use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\Client;
 use Pest\Plugin;
 use Symfony\Contracts\HttpClient\ResponseInterface;
 
 Plugin::uses(Resource::class);
 Plugin::uses(ResourceShortcuts::class);
+
+/**
+ * @param array<string> $kernelOptions
+ * @param array<string> $defaultOptions
+ */
+function apiClient(array $kernelOptions = [], array $defaultOptions = []): Client
+{
+    return test()->apiClient($kernelOptions, $defaultOptions);
+}
 
 /**
  * @param array<string> $options

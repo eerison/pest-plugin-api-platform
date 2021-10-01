@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Eerison\PestPluginApiPlatform;
 
+use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\Client;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Contracts\HttpClient\ResponseInterface;
@@ -14,6 +15,15 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
 trait Resource
 {
     private ResponseInterface $response;
+
+    /**
+     * @param array<string> $kernelOptions
+     * @param array<string> $defaultOptions
+     */
+    public function apiClient(array $kernelOptions = [], array $defaultOptions = []): Client
+    {
+        return ApiPlatform::createApiClient($kernelOptions, $defaultOptions);
+    }
 
     public function get(string $url, array $options = []): TestCase
     {
