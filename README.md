@@ -65,7 +65,7 @@ it('can be used with snapshot')
     ->toMatchJsonSnapshot();
 ```
 
-##Converting api platform test in pest
+## Converting api platform test in pest
 
 Before
 
