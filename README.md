@@ -65,11 +65,78 @@ it('can be used with snapshot')
     ->toMatchJsonSnapshot();
 ```
 
+##Converting api platform test in pest
+
+Before
+
+```php
+<?php
+// api/tests/BooksTest.php
+
+namespace App\Tests;
+
+use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCase;
+use App\Entity\Book;
+
+class BooksTest extends ApiTestCase
+{
+    public function testGetCollection(): void
+    {
+        // The client implements Symfony HttpClient's `HttpClientInterface`, and the response `ResponseInterface`
+        $response = static::createClient()->request('GET', '/books');
+
+        $this->assertResponseIsSuccessful();
+
+        // Asserts that the returned JSON is a superset of this one
+        $this->assertJsonContains([
+            '@context' => '/contexts/Book',
+            '@id' => '/books',
+            '@type' => 'hydra:Collection',
+            'hydra:totalItems' => 100,
+            'hydra:view' => [
+                '@id' => '/books?page=1',
+                '@type' => 'hydra:PartialCollectionView',
+                'hydra:first' => '/books?page=1',
+                'hydra:last' => '/books?page=4',
+                'hydra:next' => '/books?page=2',
+            ],
+        ]);
+
+        // Asserts that the returned JSON is validated by the JSON Schema generated for this resource by API Platform
+        // This generated JSON Schema is also used in the OpenAPI spec!
+        $this->assertMatchesResourceCollectionJsonSchema(Book::class);
+    }
+```
+
+After
+
+```php
+use App\Entity\Book;
+
+it('can get a collection')
+    ->get('/books')
+    ->assertResponseIsSuccessful()
+    ->expectResponseContent()
+        ->json()
+        ->toHaveKey('@context', '/contexts/Book')
+        ->toHaveKey('@id', '/books')
+        ->toHaveKey('@type', 'hydra:Collection')
+        ->toHaveKey('hydra:totalItems', 100)
+        ->toHaveKey('hydra:view.@id', '/books?page=1')
+        ->toHaveKey('hydra:view.@type', 'hydra:PartialCollectionView')
+        ->toHaveKey('hydra:first', '/books?page=1')
+        ->toHaveKey('hydra:last', '/books?page=4')
+        ->toHaveKey('hydra:next', '/books?page=2')
+        ->toMatchesResourceCollectionJsonSchema(Book::class)
+        ;
+```
+
 Expectations
 - `toMatchesResourceCollectionJsonSchema(Your::class)`
 - `toMatchesResourceItemJsonSchema(Your::class)`
 
 Functions
+- `apiClient()`
 - `get()`
 - `post()`
 - `put()`
