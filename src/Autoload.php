@@ -90,6 +90,16 @@ function assertResourceIsForbidden(): void
     test()->assertResourceIsForbidden();
 }
 
+function assertResourceIsBadRequest(): void
+{
+    test()->assertResourceIsBadRequest();
+}
+
+function assertResponseStatusCodeSame(int $statusCode): void
+{
+    test()->assertResponseStatusCodeSame($statusCode);
+}
+
 function assertMatchesResourceCollectionJsonSchema(string $object): void
 {
     ApiPlatform::assertMatchesResourceCollectionJsonSchema($object);

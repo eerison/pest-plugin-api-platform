@@ -24,9 +24,16 @@ trait ResourceShortcuts
         return $this;
     }
 
-    public function assertResourceIsNotFound(): TestCase
+    public function assertResourceIsBadRequest(): TestCase
     {
-        test()->assertResponseStatusCodeSame(404);
+        test()->assertResponseStatusCodeSame(400);
+
+        return $this;
+    }
+
+    public function assertResourceIsUnauthorized(): TestCase
+    {
+        test()->assertResponseStatusCodeSame(401);
 
         return $this;
     }
@@ -38,9 +45,9 @@ trait ResourceShortcuts
         return $this;
     }
 
-    public function assertResourceIsUnauthorized(): TestCase
+    public function assertResourceIsNotFound(): TestCase
     {
-        test()->assertResponseStatusCodeSame(401);
+        test()->assertResponseStatusCodeSame(404);
 
         return $this;
     }

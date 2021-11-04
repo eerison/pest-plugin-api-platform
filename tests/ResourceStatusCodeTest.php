@@ -1,9 +1,11 @@
 <?php
 
+use function Eerison\PestPluginApiPlatform\assertResourceIsBadRequest;
 use function Eerison\PestPluginApiPlatform\assertResourceIsForbidden;
 use function Eerison\PestPluginApiPlatform\assertResourceIsNotFound;
 use function Eerison\PestPluginApiPlatform\assertResourceIsUnauthorized;
 use function Eerison\PestPluginApiPlatform\assertResponseIsSuccessful;
+use function Eerison\PestPluginApiPlatform\assertResponseStatusCodeSame;
 use function Eerison\PestPluginApiPlatform\get;
 
 it('can get resource with status code 200.')
@@ -34,6 +36,14 @@ it('can get resource with status code 204.')
     ->assertResponseIsSuccessful()
     ->group('foo')
 ;
+
+test('assertResponseStatusCodeSame method')
+    ->get('/foo/response/400')
+    ->assertResponseStatusCodeSame(400);
+
+test('assertResourceIsBadRequest method')
+    ->get('/foo/response/400')
+    ->assertResourceIsBadRequest();
 
 it('can use assertResponseIsSuccessful as function', function () {
     get('/foo/response/204');
@@ -71,4 +81,14 @@ it('expect a forbidden status code from foo resource.')
 it('can use assertResourceIsForbidden as function', function () {
     get('/foo/response/403');
     assertResourceIsForbidden();
+});
+
+test('assertResponseStatusCodeSame method.', function () {
+    get('/foo/response/403');
+    assertResponseStatusCodeSame(403);
+});
+
+test('bad request function.', function () {
+    get('/foo/response/400');
+    assertResourceIsBadRequest();
 });

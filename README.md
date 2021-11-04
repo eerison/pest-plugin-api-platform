@@ -143,11 +143,13 @@ Functions
 - `delete()`
 - `findIriBy()`
 - `assertResponseIsSuccessful()`
+- `assertResourceIsBadRequest()`
 - `assertResourceIsNotFound()`
 - `assertResourceIsUnauthorized()`
 - `assertResourceIsForbidden()`
 - `assertMatchesResourceItemJsonSchema(Your::class)`
 - `assertMatchesResourceCollectionJsonSchema(Your::class)`
+- `assertResourceIsBadRequest(Response::HTTP_BAD_REQUEST)`
 
 ## Testing
 
