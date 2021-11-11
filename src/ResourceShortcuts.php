@@ -38,6 +38,13 @@ trait ResourceShortcuts
         return $this;
     }
 
+    public function assertResourceIsUnprocessableEntity(): TestCase
+    {
+        test()->assertResponseStatusCodeSame(422);
+
+        return $this;
+    }
+
     public function assertResourceIsForbidden(): TestCase
     {
         test()->assertResponseStatusCodeSame(403);
@@ -55,8 +62,8 @@ trait ResourceShortcuts
     /**
      * @return Expectation|Extendable
      */
-    public function expectResponseContent()
+    public function expectResponseContent(bool $throw = true)
     {
-        return expect($this->response()->getContent());
+        return expect($this->response()->getContent($throw));
     }
 }

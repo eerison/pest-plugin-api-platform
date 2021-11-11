@@ -4,6 +4,7 @@ use function Eerison\PestPluginApiPlatform\assertResourceIsBadRequest;
 use function Eerison\PestPluginApiPlatform\assertResourceIsForbidden;
 use function Eerison\PestPluginApiPlatform\assertResourceIsNotFound;
 use function Eerison\PestPluginApiPlatform\assertResourceIsUnauthorized;
+use function Eerison\PestPluginApiPlatform\assertResourceIsUnprocessableEntity;
 use function Eerison\PestPluginApiPlatform\assertResponseIsSuccessful;
 use function Eerison\PestPluginApiPlatform\assertResponseStatusCodeSame;
 use function Eerison\PestPluginApiPlatform\get;
@@ -44,6 +45,10 @@ test('assertResponseStatusCodeSame method')
 test('assertResourceIsBadRequest method')
     ->get('/foo/response/400')
     ->assertResourceIsBadRequest();
+
+test('assertResourceIsUnprocessableEntity method')
+    ->get('/foo/response/422')
+    ->assertResourceIsUnprocessableEntity();
 
 it('can use assertResponseIsSuccessful as function', function () {
     get('/foo/response/204');
@@ -91,4 +96,9 @@ test('assertResponseStatusCodeSame method.', function () {
 test('bad request function.', function () {
     get('/foo/response/400');
     assertResourceIsBadRequest();
+});
+
+test('Unprocessable entity function.', function () {
+    get('/foo/response/422');
+    assertResourceIsUnprocessableEntity();
 });
