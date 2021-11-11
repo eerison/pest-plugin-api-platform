@@ -95,6 +95,11 @@ function assertResourceIsBadRequest(): void
     test()->assertResourceIsBadRequest();
 }
 
+function assertResourceIsUnprocessableEntity(): void
+{
+    test()->assertResourceIsUnprocessableEntity();
+}
+
 function assertResponseStatusCodeSame(int $statusCode): void
 {
     test()->assertResponseStatusCodeSame($statusCode);

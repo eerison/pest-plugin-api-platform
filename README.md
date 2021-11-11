@@ -149,7 +149,14 @@ Functions
 - `assertResourceIsForbidden()`
 - `assertMatchesResourceItemJsonSchema(Your::class)`
 - `assertMatchesResourceCollectionJsonSchema(Your::class)`
-- `assertResourceIsBadRequest(Response::HTTP_BAD_REQUEST)`
+- `assertResourceIsBadRequest()`
+- `assertResourceIsUnprocessableEntity()`
+- `expectResponseContent()`
+
+> if you want to test `expectResponseContent` and not return an exception pass `false` as parameter, example: `expectResponseContent(false)`
+
+
+
 
 ## Testing
 
