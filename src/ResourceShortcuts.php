@@ -14,16 +14,6 @@ use Symfony\Contracts\HttpClient\ResponseInterface;
  */
 trait ResourceShortcuts
 {
-    /**
-     * @throws \Symfony\Contracts\HttpClient\Exception\TransportExceptionInterface
-     */
-    public function assertResponseIsSuccessful(): TestCase
-    {
-        ApiPlatform::assertResponseIsSuccessful();
-
-        return $this;
-    }
-
     public function assertResourceIsBadRequest(): TestCase
     {
         test()->assertResponseStatusCodeSame(400);

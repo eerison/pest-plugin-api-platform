@@ -11,6 +11,14 @@ You can install the package via composer:
 composer require eerison/pest-plugin-api-platform --dev
 ```
 
+Add `uses(ApiTestCase::class)` in your `tests/Pest.php`
+
+```php
+use ApiPlatform\Core\Bridge\Symfony\Bundle\Test\ApiTestCase;
+
+uses(ApiTestCase::class)->beforeEach(fn() => static::bootKernel())->in('Feature');
+```
+
 ## Usage
 
 ```php
@@ -80,6 +88,9 @@ use App\Entity\Book;
 
 class BooksTest extends ApiTestCase
 {
+    // This trait provided by AliceBundle will take care of refreshing the database content to a known state before each test
+    use RefreshDatabaseTrait;
+    
     public function testGetCollection(): void
     {
         // The client implements Symfony HttpClient's `HttpClientInterface`, and the response `ResponseInterface`
@@ -112,6 +123,9 @@ After
 
 ```php
 use App\Entity\Book;
+use Hautelook\AliceBundle\PhpUnit\RefreshDatabaseTrait;
+
+uses(RefreshDatabaseTrait::class);
 
 it('can get a collection')
     ->get('/books')

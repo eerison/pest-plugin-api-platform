@@ -55,13 +55,6 @@ trait Resource
         return $this;
     }
 
-    public function assertResponseStatusCodeSame(int $statusCode): TestCase
-    {
-        ApiPlatform::assertResponseStatusCodeSame($statusCode);
-
-        return $this;
-    }
-
     public function response(): ResponseInterface
     {
         return $this->response;
